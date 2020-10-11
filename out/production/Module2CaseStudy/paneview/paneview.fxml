@@ -8,48 +8,57 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paneview.Display.Controller">
+<AnchorPane fx:id="outBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="image" fitHeight="152.0" fitWidth="200.0" layoutX="-6.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+      <TableView fx:id="table" layoutX="166.0" layoutY="248.0" prefHeight="380.0" prefWidth="628.0">
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="105.0" text="ID" />
+            <TableColumn fx:id="nameColumn" prefWidth="217.0" text="NAME" />
+            <TableColumn fx:id="brandColumn" prefWidth="122.0" text="BRAND" />
+            <TableColumn fx:id="quantityColumn" prefWidth="69.0" text="QUAN" />
+            <TableColumn fx:id="priceColumn" prefWidth="114.0" text="PRICE (VND)" />
+         </columns>
+      </TableView>
+      <ImageView fx:id="image1" fitHeight="152.0" fitWidth="200.0" layoutX="4.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/maymoc.png" />
          </image>
       </ImageView>
-      <TableView fx:id="table" layoutX="305.0" layoutY="123.0" prefHeight="380.0" prefWidth="570.0">
-        <columns>
-          <TableColumn fx:id="idColumn" prefWidth="106.0" text="ID" />
-          <TableColumn fx:id="nameColumn" prefWidth="178.0" text="NAME" />
-            <TableColumn fx:id="brandColumn" prefWidth="110.0" text="BRAND" />
-            <TableColumn fx:id="quantityColumn" prefWidth="76.0" text="QUANTITY" />
-            <TableColumn fx:id="priceColumn" prefWidth="99.0" text="PRICE" />
-        </columns>
-      </TableView>
-      <TextField fx:id="idText" layoutX="113.0" layoutY="172.0" />
-      <TextField fx:id="nameText" layoutX="113.0" layoutY="215.0" />
-      <TextField fx:id="brandText" layoutX="113.0" layoutY="262.0" />
-      <TextField fx:id="quantityText" layoutX="113.0" layoutY="308.0" />
-      <TextField fx:id="priceText" layoutX="113.0" layoutY="355.0" />
-      <Label layoutX="41.0" layoutY="177.0" text="ID" />
-      <Label layoutX="41.0" layoutY="220.0" text="NAME" />
-      <Label layoutX="41.0" layoutY="267.0" text="BRAND" />
-      <Label layoutX="41.0" layoutY="313.0" text="QUAN." />
-      <Label layoutX="41.0" layoutY="360.0" text="PRICE" />
-      <Button fx:id="addButton" layoutX="41.0" layoutY="409.0" mnemonicParsing="false" onAction="#add" prefHeight="27.0" prefWidth="116.0" text="ADD" />
-      <Button fx:id="resetButton" layoutX="164.0" layoutY="446.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="116.0" text="RESET" />
-      <Button fx:id="updateButton" layoutX="41.0" layoutY="446.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="116.0" text="UPDATE" />
-      <Button fx:id="deleteButton" layoutX="164.0" layoutY="409.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="116.0" text="DELETE" />
-      <Label layoutX="164.0" layoutY="6.0" prefHeight="51.0" prefWidth="373.0" text="THE GIOI PHU TUNG NEW CENTURY">
+      <Label layoutX="-208.0" layoutY="327.0" prefHeight="138.0" prefWidth="539.0" rotate="-90.0" text="NEW  CENTURY">
          <font>
-            <Font size="21.0" />
+            <Font size="68.0" />
          </font>
       </Label>
-      <Label layoutX="685.0" layoutY="72.0" text="S2 : Suzuki" />
-      <Label layoutX="685.0" layoutY="97.0" text="J3 : Jupiter" />
-      <Label layoutX="778.0" layoutY="97.0" text="M6 : SYM" />
-      <Label layoutX="775.0" layoutY="72.0" text="P5 : Piagio" />
-      <Label layoutX="775.0" layoutY="51.0" text="Y4 : Yamaha" />
-      <Label layoutX="686.0" layoutY="51.0" text="H1 : Honda" />
+      <TextField fx:id="idText" layoutX="245.0" layoutY="22.0" promptText="eg: MBHH1904" />
+      <TextField fx:id="nameText" layoutX="245.0" layoutY="65.0" promptText="eg: MU BAO HIEM" />
+      <TextField fx:id="brandText" layoutX="245.0" layoutY="113.0" promptText="eg: HONDA" />
+      <TextField fx:id="quantityText" layoutX="245.0" layoutY="160.0" promptText="eg: 5" />
+      <TextField fx:id="pricetText" layoutX="245.0" layoutY="205.0" promptText="eg: 250000" />
+      <Label layoutX="190.0" layoutY="27.0" text="ID" />
+      <Label layoutX="190.0" layoutY="70.0" text="NAME" />
+      <Label layoutX="190.0" layoutY="118.0" text="BRAND" />
+      <Label layoutX="190.0" layoutY="165.0" text="QUAN" />
+      <Label layoutX="190.0" layoutY="210.0" text="PRICE" />
+      <Button fx:id="addButton" layoutX="422.0" layoutY="44.0" mnemonicParsing="false" text="ADD" />
+      <Button fx:id="updateButton" layoutX="422.0" layoutY="91.0" mnemonicParsing="false" text="UPD" />
+      <Button fx:id="deleteButton" layoutX="422.0" layoutY="141.0" mnemonicParsing="false" text="DEL" />
+      <Button fx:id="resetButton" layoutX="422.0" layoutY="192.0" mnemonicParsing="false" text="RES" />
+      <Line endX="-53.0" endY="182.0" layoutX="546.0" layoutY="49.0" startX="-53.0" startY="-23.0" />
+      <TextField fx:id="searchText" layoutX="554.0" layoutY="22.0" promptText="Type a word..." />
+      <Button fx:id="searchButton" layoutX="736.0" layoutY="22.0" mnemonicParsing="false" text="Search" />
+      <ImageView fx:id="image2" fitHeight="36.0" fitWidth="38.0" layoutX="512.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/kinhlup.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="537.0" layoutY="165.0" text="H1: HONDA" />
+      <Label layoutX="647.0" layoutY="197.0" text="P5: PIAGIO" />
+      <Label layoutX="741.0" layoutY="197.0" text="M6: SYM" />
+      <Label layoutX="537.0" layoutY="197.0" text="Y4: YAMAHA" />
+      <Label layoutX="628.0" layoutY="165.0" text="S2: SUZUKI" />
+      <Label layoutX="721.0" layoutY="165.0" text="J3: JUPITER" />
    </children>
 </AnchorPane>

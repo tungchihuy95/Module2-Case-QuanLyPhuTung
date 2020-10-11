@@ -11,6 +11,8 @@
       <root url="jar://$PROJECT_DIR$/../Downloads/javafx-sdk-11.0.2/lib/javafx.media.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../Downloads/javafx-sdk-11.0.2/lib/javafx.graphics.jar!/" />
+    </SOURCES>
   </library>
 </component>

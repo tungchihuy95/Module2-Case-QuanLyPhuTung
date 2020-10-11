@@ -14,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
 
     public static void main(String[] args) {
@@ -24,6 +26,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("paneview.fxml"));
+            primaryStage.setTitle("The gioi phu tung - NEW CENTURY");
             primaryStage.setScene(new Scene(root, 500, 350));
             primaryStage.show();
         } catch (Exception e) {

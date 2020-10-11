@@ -10,6 +10,7 @@
       <element id="archive" name="JavaFXApp.jar">
         <element id="module-output" name="Module2CaseStudy" />
       </element>
+      <element id="library" level="project" name="javafx-swt" />
     </root>
   </artifact>
 </component>

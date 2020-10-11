@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
+import java.io.BufferedReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -16,18 +17,25 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import paneview.Model.Products;
 
 
 
-//
-public class Controller implements Initializable {
+
+public class Controller implements Initializable{
+
+    @FXML
+    private AnchorPane outBorderPane;
 
     @FXML
     private TableView<Products> table;
 
     @FXML
-    private ImageView image;
+    private ImageView image1;
+
+    @FXML
+    private ImageView image2;
 
     @FXML
     private TableColumn<Products, String> idColumn;
@@ -56,9 +64,9 @@ public class Controller implements Initializable {
     @FXML
     private Button resetButton;
 
+    @FXML
+    private Button searchButton;
 
-    //List thay đổi nên cái hiển thị của TableView cũng thay đổi theo, nên cần dùng ObservableList
-    private ObservableList<Products> obsProdList;
 
     @FXML
     private TextField idText;
@@ -75,13 +83,24 @@ public class Controller implements Initializable {
     @FXML
     private TextField priceText;
 
+    @FXML
+    private TextField searchText;
+
+    //List thay đổi nên cái hiển thị của TableView cũng thay đổi theo, nên cần dùng ObservableList
+    private ObservableList<Products> obsProdList;
+
+
+    //vì ObservableList là thuộc ITF, nên phải có một thư viện để khởi tạo nó
+
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //vì ObservableList là thuộc ITF, nên phải có một thư viện để khởi tạo nó
         obsProdList = FXCollections.observableArrayList(
                 new Products("BULH1189", "BU LONG LOC", "HONDA", 7, 6500),
                 new Products("BULH1236", "BU LONG CHAN NHIET", "HONDA", 8, 5000),
-                new Products("BULH1873", "BU LONG LOC", "HONDA", 6, 7000)
-        );
+                new Products("BULH1873", "BU LONG LOC", "HONDA", 6, 7000));
+
         //cho ID, name,... vào đúng các cột ID, name...
         idColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("name"));
@@ -92,76 +111,7 @@ public class Controller implements Initializable {
     }
 
 
-//public class Controller implements Initializable {
-//
-//    @FXML
-//    private TableView<Products> table;
-//
-//    @FXML
-//    private ImageView image;
-//
-//    @FXML
-//    private TableColumn<Products, String> idColumn;
-//
-//    @FXML
-//    private TableColumn<Products, String> nameColumn;
-//
-//    @FXML
-//    private TableColumn<Products, String> brandColumn;
-//
-//    @FXML
-//    private TableColumn<Products, Integer> quantityColumn;
-//
-//    @FXML
-//    private TableColumn<Products, Integer> priceColumn;
-//
-//    @FXML
-//    private Button addButton;
-//
-//    @FXML
-//    private Button deleteButton;
-//
-//    @FXML
-//    private Button updateButton;
-//
-//    @FXML
-//    private Button resetButton;
-//
-//
-//    //List thay đổi nên cái hiển thị của TableView cũng thay đổi theo, nên cần dùng ObservableList
-//    private ObservableList<Products> obsProdList;
-//
-//    @FXML
-//    private TextField idText;
-//
-//    @FXML
-//    private TextField nameText;
-//
-//    @FXML
-//    private TextField brandText;
-//
-//    @FXML
-//    private TextField quantityText;
-//
-//    @FXML
-//    private TextField priceText;
-//
-//
-//
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        //vì ObservableList là thuộc ITF, nên phải có một thư viện để khởi tạo nó
-//        obsProdList = FXCollections.observableArrayList (
-//                new Products("BULH1189", "BU LONG LOC", "HONDA", 7, 6500),
-//                new Products("BULH1236", "BU LONG CHAN NHIET", "HONDA", 8, 5000),
-//                new Products("BULH1873", "BU LONG LOC", "HONDA", 6, 7000)
-//
-//        );
-//
 
-    //
-//
-//
     public void add(ActionEvent event) {
         Products newProduct = new Products();
         //lấy id từ trong idText
