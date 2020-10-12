@@ -11,17 +11,8 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="outBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paneview.Controller">
    <children>
-      <TableView fx:id="table" layoutX="166.0" layoutY="248.0" prefHeight="380.0" prefWidth="628.0">
-         <columns>
-            <TableColumn fx:id="idColumn" prefWidth="105.0" text="ID" />
-            <TableColumn fx:id="nameColumn" prefWidth="217.0" text="NAME" />
-            <TableColumn fx:id="brandColumn" prefWidth="122.0" text="BRAND" />
-            <TableColumn fx:id="quantityColumn" prefWidth="69.0" text="QUAN" />
-            <TableColumn fx:id="priceColumn" prefWidth="114.0" text="PRICE (VND)" />
-         </columns>
-      </TableView>
       <ImageView fx:id="image1" fitHeight="152.0" fitWidth="200.0" layoutX="4.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/maymoc.png" />
@@ -32,11 +23,11 @@
             <Font size="68.0" />
          </font>
       </Label>
-      <TextField fx:id="idText" layoutX="245.0" layoutY="22.0" promptText="eg: MBHH1904" />
-      <TextField fx:id="nameText" layoutX="245.0" layoutY="65.0" promptText="eg: MU BAO HIEM" />
-      <TextField fx:id="brandText" layoutX="245.0" layoutY="113.0" promptText="eg: HONDA" />
-      <TextField fx:id="quantityText" layoutX="245.0" layoutY="160.0" promptText="eg: 5" />
-      <TextField fx:id="pricetText" layoutX="245.0" layoutY="205.0" promptText="eg: 250000" />
+      <TextField fx:id="idText" layoutX="245.0" layoutY="22.0" />
+      <TextField fx:id="nameText" layoutX="245.0" layoutY="65.0" />
+      <TextField fx:id="brandText" layoutX="245.0" layoutY="113.0" />
+      <TextField fx:id="quantityText" layoutX="245.0" layoutY="160.0" />
+      <TextField fx:id="priceText" layoutX="245.0" layoutY="205.0" />
       <Label layoutX="190.0" layoutY="27.0" text="ID" />
       <Label layoutX="190.0" layoutY="70.0" text="NAME" />
       <Label layoutX="190.0" layoutY="118.0" text="BRAND" />
@@ -60,5 +51,14 @@
       <Label layoutX="537.0" layoutY="197.0" text="Y4: YAMAHA" />
       <Label layoutX="628.0" layoutY="165.0" text="S2: SUZUKI" />
       <Label layoutX="721.0" layoutY="165.0" text="J3: JUPITER" />
+      <TableView fx:id="table" layoutX="177.0" layoutY="259.0" prefHeight="388.0" prefWidth="620.0">
+        <columns>
+          <TableColumn fx:id="idColumn" prefWidth="114.0" text="ID" />
+          <TableColumn fx:id="nameColumn" prefWidth="207.0" text="NAME" />
+            <TableColumn fx:id="brandColumn" prefWidth="111.0" text="BRAND" />
+            <TableColumn fx:id="quantityColumn" prefWidth="82.0" text="QUAN" />
+            <TableColumn fx:id="priceColumn" prefWidth="105.0" text="PRICE" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
