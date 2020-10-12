@@ -1,4 +1,4 @@
-package paneview;
+package paneview.Model;
 
 public class Products {
     private String  id;
