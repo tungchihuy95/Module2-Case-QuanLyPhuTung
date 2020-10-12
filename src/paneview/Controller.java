@@ -39,30 +39,7 @@ public class Controller implements Initializable {
 
     private ObservableList<Products> observableList;
 
-//    @FXML
-//    private TableView<Products> table;
-//
-//    @FXML
-//    private ImageView image1;
-//
-//    @FXML
-//    private ImageView image2;
-//
-//    @FXML
-//    private TableColumn<Products, String> idColumn;
-//
-//    @FXML
-//    private TableColumn<Products, String> nameColumn;
-//
-//    @FXML
-//    private TableColumn<Products, String> brandColumn;
-//
-//    @FXML
-//    private TableColumn<Products, Integer> quantityColumn;
-//
-//    @FXML
-//    private TableColumn<Products, Integer> priceColumn;
-//
+
 //    //List thay đổi nên cái hiển thị của TableView cũng thay đổi theo, nên cần dùng ObservableList
 //    private ObservableList<Products> obsProdList;
 
@@ -108,7 +85,7 @@ public class Controller implements Initializable {
         //vì ObservableList là thuộc ITF, nên phải có một thư viện để khởi tạo nó
         observableList = FXCollections.observableArrayList(
                 new Products("BAXS2202", " LOP TRUOC SPORTY ", "SUZUKI", 3,  320000 ),
-                new Products("BAXS2202", " LOP TRUOC SPORTY ", "SUZUKI", 3,  320000 ),
+                new Products("BULH1236", " BU LONG CHAN NHIET ", "HONDA", 3,  5000),
                 new Products("BAXS2202", " LOP TRUOC SPORTY ", "SUZUKI", 3,  320000 )
         );
 
@@ -120,4 +97,6 @@ public class Controller implements Initializable {
         table.setItems(observableList);
 
     }
+
+    //Dùng ID tự sinh (thêm cột STT)
 }

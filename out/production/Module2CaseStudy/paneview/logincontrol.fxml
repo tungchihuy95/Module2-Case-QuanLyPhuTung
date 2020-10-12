@@ -8,12 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paneview.LoginController">
    <left>
       <AnchorPane prefHeight="407.0" prefWidth="228.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="350.0" fitWidth="228.0" layoutX="1.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="logoxeImageView" fitHeight="350.0" fitWidth="228.0" layoutX="1.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/logoxe.png" />
                </image>
@@ -24,18 +23,18 @@
    <right>
       <AnchorPane prefHeight="200.0" prefWidth="332.0" style="-fx-background-color: #708090#708090;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="21.0" layoutY="124.0" text="Username:" />
-            <Label layoutX="19.0" layoutY="166.0" text="Password:" />
-            <TextField fx:id="enterUsernameField" layoutX="96.0" layoutY="119.0" prefHeight="27.0" prefWidth="173.0" promptText="Username..." />
-            <TextField fx:id="enterPasswordField" layoutX="96.0" layoutY="161.0" prefHeight="27.0" prefWidth="173.0" promptText="Password..." />
-            <ImageView fitHeight="35.0" fitWidth="40.0" layoutX="134.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="lockImageView" fitHeight="35.0" fitWidth="40.0" layoutX="134.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/newlock.png" />
                </image>
             </ImageView>
-            <Button fx:id="loginButton" layoutX="56.0" layoutY="232.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" style="-fx-background-color: #ffa500#ffa500;" text="LOGIN" />
-            <Button fx:id="cancelButton" layoutX="56.0" layoutY="270.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="191.0" text="CANCEL" />
-            <Label layoutX="59.0" layoutY="206.0" text="Invalid login. Please try again !" textFill="#a81212" />
+            <Label layoutX="21.0" layoutY="124.0" text="Username:" />
+            <Label layoutX="19.0" layoutY="166.0" text="Password:" />
+            <TextField fx:id="usernameTextField" layoutX="96.0" layoutY="119.0" prefHeight="27.0" prefWidth="173.0" promptText="Username..." />
+            <TextField fx:id="passwordTextField" layoutX="96.0" layoutY="161.0" prefHeight="27.0" prefWidth="173.0" promptText="Password..." />
+            <Button fx:id="loginButton" layoutX="56.0" layoutY="232.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="27.0" prefWidth="190.0" style="-fx-background-color: #ffa500#ffa500;" text="LOGIN" />
+            <Button fx:id="cancelButton" layoutX="56.0" layoutY="270.0" onAction="#cancelButtonOnAction" prefHeight="27.0" prefWidth="191.0" text="CANCEL" />
+            <Label fx:id="loginMessageLabel" layoutX="59.0" layoutY="206.0" text="Invalid login. Please try again !" textFill="#a81212" />
          </children>
       </AnchorPane>
    </right>
