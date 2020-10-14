@@ -11,14 +11,14 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paneview.Controller">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paneview.Controller">
    <children>
       <ImageView fx:id="image1" fitHeight="152.0" fitWidth="200.0" layoutX="4.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/maymoc.png" />
          </image>
       </ImageView>
-      <Label layoutX="-208.0" layoutY="327.0" prefHeight="138.0" prefWidth="539.0" rotate="-90.0" text="NEW  CENTURY">
+      <Label blendMode="DARKEN" layoutX="-208.0" layoutY="327.0" prefHeight="138.0" prefWidth="539.0" rotate="-90.0" text="NEW  CENTURY">
          <font>
             <Font size="68.0" />
          </font>
@@ -33,13 +33,13 @@
       <Label layoutX="190.0" layoutY="118.0" text="BRAND" />
       <Label layoutX="190.0" layoutY="165.0" text="QUAN" />
       <Label layoutX="190.0" layoutY="210.0" text="PRICE" />
-      <Button fx:id="addButton" layoutX="422.0" layoutY="44.0" mnemonicParsing="false" text="ADD" />
-      <Button fx:id="updateButton" layoutX="422.0" layoutY="91.0" mnemonicParsing="false" text="UPD" />
-      <Button fx:id="deleteButton" layoutX="422.0" layoutY="141.0" mnemonicParsing="false" text="DEL" />
-      <Button fx:id="resetButton" layoutX="422.0" layoutY="192.0" mnemonicParsing="false" text="RES" />
+      <Button fx:id="addButton" layoutX="428.0" layoutY="22.0" mnemonicParsing="false" onAction="#add" style="-fx-background-color: #90ee90#90ee90;" text="ADD" />
+      <Button fx:id="updateButton" layoutX="428.0" layoutY="65.0" mnemonicParsing="false" onAction="#update" style="-fx-background-color: #ffa07a#ffa07a;" text="UPD" />
+      <Button fx:id="deleteButton" layoutX="430.0" layoutY="160.0" mnemonicParsing="false" onAction="#delete" style="-fx-background-color: #87cefa#87cefa;" text="DEL" />
+      <Button fx:id="resetButton" layoutX="430.0" layoutY="205.0" mnemonicParsing="false" onAction="#reset" style="-fx-background-color: #dda0dd#dda0dd;" text="RES" />
       <Line endX="-53.0" endY="182.0" layoutX="546.0" layoutY="49.0" startX="-53.0" startY="-23.0" />
-      <TextField fx:id="searchText" layoutX="554.0" layoutY="22.0" promptText="Type a word..." />
-      <Button fx:id="searchButton" layoutX="736.0" layoutY="22.0" mnemonicParsing="false" text="Search" />
+      <TextField fx:id="searchText" layoutX="554.0" layoutY="22.0" prefHeight="27.0" prefWidth="244.0" promptText="Type a word..." />
+      <Button fx:id="searchButton" layoutX="718.0" layoutY="57.0" mnemonicParsing="false" onAction="#search" prefHeight="27.0" prefWidth="81.0" text="Search" />
       <ImageView fx:id="image2" fitHeight="36.0" fitWidth="38.0" layoutX="512.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/kinhlup.jpg" />
@@ -60,5 +60,6 @@
             <TableColumn fx:id="priceColumn" prefWidth="105.0" text="PRICE" />
         </columns>
       </TableView>
+      <Button fx:id="saveButton" layoutX="429.0" layoutY="113.0" mnemonicParsing="false" onAction="#save" style="-fx-background-color: #ffd700#ffd700;" text="SAV" />
    </children>
 </AnchorPane>

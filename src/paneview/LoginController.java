@@ -1,4 +1,4 @@
-package paneview.Controller;
+package paneview;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,7 +31,7 @@ public class LoginController implements Initializable {
     @FXML
     private TextField usernameTextField;
     @FXML
-    private PasswordField passwordTextField;
+    private TextField passwordTextField;
 
 
 
@@ -57,8 +57,7 @@ public class LoginController implements Initializable {
 //            Alert alert;
 //            alert.show();
 
-        if (usernameTextField.getText().isBlank() || passwordTextField.getText().isBlank()) {
-        }
+
         }
 
 

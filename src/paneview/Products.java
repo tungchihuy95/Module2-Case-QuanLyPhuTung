@@ -1,6 +1,8 @@
-package paneview.Model;
+package paneview;
 
-public class Products {
+import java.io.Serializable;
+
+public class Products implements Serializable {
     private String  id;
     private String name;
     private String brand;
