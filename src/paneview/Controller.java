@@ -1,11 +1,9 @@
 package paneview;
 
-import file_manager.FileManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import java.io.*;
@@ -45,10 +43,6 @@ public class Controller implements Initializable, MethodController {
     @FXML
     private TableColumn<Products, Integer> priceColumn;
 
-
-//    //List thay đổi nên cái hiển thị của TableView cũng thay đổi theo, nên cần dùng ObservableList
-//    private ObservableList<paneview.Products> obsProdList;
-
     @FXML
     private Button addButton;
 
@@ -57,7 +51,7 @@ public class Controller implements Initializable, MethodController {
 
     @FXML
     private Button deleteButton;
-    //
+
     @FXML
     private Button editButton;
 
@@ -69,8 +63,7 @@ public class Controller implements Initializable, MethodController {
 
     @FXML
     private Button updateButton;
-    //
-//
+
     @FXML
     private TextField idText;
 
@@ -92,16 +85,14 @@ public class Controller implements Initializable, MethodController {
     private final NumberFormat numberFormat = new DecimalFormat("#,###");
 
 
-//   private ObservableList<Products> productsList;
-
-   private ObservableList<Products> productsList;
+    private ObservableList<Products> productsList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             productsList = FXCollections.observableArrayList(
 
-                         readFile()
+                    readFile()
 
             );
         } catch (Exception e) {
@@ -109,15 +100,12 @@ public class Controller implements Initializable, MethodController {
         }
 
 
-        //vì ObservableList là thuộc ITF, nên phải có một thư viện để khởi tạo nó
-
-
         idColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("name"));
         brandColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("brand"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<Products, Integer>("quantity"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<Products, Integer>("price"));
-        priceColumn.setCellFactory(tc -> new  TableCell<Products, Integer>() {
+        priceColumn.setCellFactory(tc -> new TableCell<Products, Integer>() {
             @Override
             protected void updateItem(Integer price, boolean empty) {
                 super.updateItem(price, empty);
@@ -128,14 +116,14 @@ public class Controller implements Initializable, MethodController {
                 }
             }
         });
-        editButton.setDisable(true);
+//        editButton.setDisable(true);
         table.setItems(productsList);
         this.search();
 
     }
 
 
-    //Ghi
+    //Write files
     public void writeFile() throws Exception {
         FileOutputStream file;
         ObjectOutputStream object;
@@ -152,7 +140,7 @@ public class Controller implements Initializable, MethodController {
         }
     }
 
-    //đọc file
+    //Read file
     public List<Products> readFile() {
         List<Products> list = new ArrayList<>();
         FileInputStream file;
@@ -177,14 +165,15 @@ public class Controller implements Initializable, MethodController {
 
     //load
     public void loadProducts() {
-        table.getItems().clear();
+//        table.getItems().clear();
         for (Products products : productsList) {
             table.getItems().add(products);
         }
+        table.getItems().clear();
     }
 
 
-    //add
+    //Add
     @Override
     public void add(ActionEvent event) throws Exception {
         Products newProduct = new Products();
@@ -196,7 +185,6 @@ public class Controller implements Initializable, MethodController {
 
         for (Products product : productsList) {
             if (product.getId().equals(idText.getText()) || idText.getText().equals("")) {
-//                Alert.AlertType alertAlertType;
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Alert Information!");
                 alert.setContentText("Existed or missing info!");
@@ -218,18 +206,7 @@ public class Controller implements Initializable, MethodController {
     }
 
 
-    //ghi file
-//    public void writeFile() throws Exception {
-//        FileManager<Products> fileManager = new FileManager<>();
-//        fileManager.writeFile("src/file_manager/tung.txt", productsList);
-//    }
-    //đọc file
-//    public void readFile() throws Exception {
-//        FileManager<Products> fileManager = new FileManager<>();
-//        productsList.clear();
-//        productsList.addAll(fileManager.readFile("src/file_manager/tung.txt"));
-//    }
-
+    //Save
     @Override
     public void save() {
         try {
@@ -238,7 +215,6 @@ public class Controller implements Initializable, MethodController {
             for (Products product : productsList) {
                 oos.writeObject(product);
             }
-//            oos.writeObject(productList);
             oos.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -247,6 +223,7 @@ public class Controller implements Initializable, MethodController {
         }
     }
 
+    //Edit
     @Override
     public void edit(ActionEvent e) {
         Products products = table.getSelectionModel().getSelectedItem();
@@ -296,6 +273,7 @@ public class Controller implements Initializable, MethodController {
             brandText.setText(String.valueOf(selectedProduct.getBrand()));
             quantityText.setText(String.valueOf(selectedProduct.getQuantity()));
             priceText.setText(String.valueOf(selectedProduct.getPrice()));
+//            editButton.setDisable(true);
         } else {
             Alert.AlertType alertAlertType;
             Alert alert = new Alert(AlertType.ERROR);
@@ -325,10 +303,10 @@ public class Controller implements Initializable, MethodController {
 
             updateButton.setDisable(true);
             editButton.setDisable(false);
-
-//            productsList.add(products);
             loadProducts();
             writeFile();
+            loadProducts();
+
         }
     }
 
@@ -350,26 +328,6 @@ public class Controller implements Initializable, MethodController {
             });
         }));
         table.setItems(searchList);
-//        List<Products> productsList = new ArrayList<>();
-//
-//        TableView<Products> table;
-//        public void searchId(String name) {
-//            String input = name.toLowerCase();
-//            boolean check = false;
-//            String string;
-//            int i;
-//            for (i = 0; i < productsList.size(); i++) {
-//                string = (productsList.get(i).getName()).toLowerCase();
-//                for (int j = 0; j < (productsList.get(i).getName()).length(); j++) {
-//                    if (productsList.get(j).getName().contains(input)) {
-//                        check = true;
-//                        break;
-//                    }
-//                    if (check)
-//                        table.getItems().add(productsList.get(i));
-//                }
-//            }
-//        }
     }
 
 
