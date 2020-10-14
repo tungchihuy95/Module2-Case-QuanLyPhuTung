@@ -33,9 +33,9 @@
       <Label layoutX="190.0" layoutY="118.0" text="BRAND" />
       <Label layoutX="190.0" layoutY="165.0" text="QUAN" />
       <Label layoutX="190.0" layoutY="210.0" text="PRICE" />
-      <Button fx:id="addButton" layoutX="428.0" layoutY="22.0" mnemonicParsing="false" onAction="#add" style="-fx-background-color: #90ee90#90ee90;" text="ADD" />
-      <Button fx:id="updateButton" layoutX="428.0" layoutY="65.0" mnemonicParsing="false" onAction="#update" style="-fx-background-color: #ffa07a#ffa07a;" text="UPD" />
-      <Button fx:id="deleteButton" layoutX="430.0" layoutY="160.0" mnemonicParsing="false" onAction="#delete" style="-fx-background-color: #87cefa#87cefa;" text="DEL" />
+      <Button fx:id="addButton" layoutX="429.0" layoutY="31.0" mnemonicParsing="false" onAction="#add" style="-fx-background-color: #90ee90#90ee90;" text="ADD" />
+      <Button fx:id="editButton" layoutX="430.0" layoutY="65.0" mnemonicParsing="false" onAction="#edit" style="-fx-background-color: #ffa07a#ffa07a;" text="EDT" />
+      <Button fx:id="deleteButton" layoutX="430.0" layoutY="169.0" mnemonicParsing="false" onAction="#delete" style="-fx-background-color: #87cefa#87cefa;" text="DEL" />
       <Button fx:id="resetButton" layoutX="430.0" layoutY="205.0" mnemonicParsing="false" onAction="#reset" style="-fx-background-color: #dda0dd#dda0dd;" text="RES" />
       <Line endX="-53.0" endY="182.0" layoutX="546.0" layoutY="49.0" startX="-53.0" startY="-23.0" />
       <TextField fx:id="searchText" layoutX="554.0" layoutY="22.0" prefHeight="27.0" prefWidth="244.0" promptText="Type a word..." />
@@ -60,6 +60,7 @@
             <TableColumn fx:id="priceColumn" prefWidth="105.0" text="PRICE" />
         </columns>
       </TableView>
-      <Button fx:id="saveButton" layoutX="429.0" layoutY="113.0" mnemonicParsing="false" onAction="#save" style="-fx-background-color: #ffd700#ffd700;" text="SAV" />
+      <Button fx:id="saveButton" layoutX="430.0" layoutY="135.0" mnemonicParsing="false" style="-fx-background-color: #ffd700#ffd700;" text="SAV" />
+      <Button fx:id="updateButton" layoutX="429.0" layoutY="100.0" mnemonicParsing="false" onAction="#update" style="-fx-background-color: #ffa07a#ffa07a;" text="UPD" />
    </children>
 </AnchorPane>

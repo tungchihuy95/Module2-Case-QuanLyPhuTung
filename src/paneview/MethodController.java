@@ -7,12 +7,13 @@ import java.util.List;
 public interface MethodController<T> {
 
     void add (ActionEvent event) throws Exception;
-    void update (ActionEvent event);
+    void update (ActionEvent event) throws Exception;
     void delete (ActionEvent event);
     void select(ActionEvent event);
-    void save(ActionEvent event) throws Exception;
+    void save() throws Exception;
     void reset(ActionEvent event);
     void search(ActionEvent event);
+    void edit(ActionEvent event);
 
     T findById(int id);
     List<T> findByProductName (String name);

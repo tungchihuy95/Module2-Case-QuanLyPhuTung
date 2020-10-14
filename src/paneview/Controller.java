@@ -5,9 +5,12 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.*;
-
 
 
 import javafx.fxml.FXML;
@@ -15,8 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-
-
 
 
 public class Controller implements Initializable, MethodController {
@@ -43,8 +44,6 @@ public class Controller implements Initializable, MethodController {
     private TableColumn<Products, Integer> priceColumn;
 
 
-
-
 //    //List thay đổi nên cái hiển thị của TableView cũng thay đổi theo, nên cần dùng ObservableList
 //    private ObservableList<paneview.Products> obsProdList;
 
@@ -58,14 +57,17 @@ public class Controller implements Initializable, MethodController {
     private Button deleteButton;
     //
     @FXML
-    private Button updateButton;
+    private Button editButton;
 
     @FXML
     private Button resetButton;
 
     @FXML
     private Button searchButton;
-//
+
+    @FXML
+    private Button updateButton;
+    //
 //
     @FXML
     private TextField idText;
@@ -87,6 +89,7 @@ public class Controller implements Initializable, MethodController {
 
 
     List<Products> productsList = new ArrayList<>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -113,16 +116,15 @@ public class Controller implements Initializable, MethodController {
         FileManager<Products> fileManager = new FileManager<>();
         fileManager.writeFile("src/file_manager/tung.txt", productsList);
     }
+
     //đọc file
     public void readFile() throws Exception {
         FileManager<Products> fileManager = new FileManager<>();
-                productsList.clear();
-                productsList.addAll(fileManager.readFile("src/file_manager/tung.txt"));
+        productsList.clear();
+        productsList.addAll(fileManager.readFile("src/file_manager/tung.txt"));
     }
 
-
-
-
+    //load
     public void loadProducts() {
         table.getItems().clear();
         for (Products products : productsList) {
@@ -130,6 +132,8 @@ public class Controller implements Initializable, MethodController {
         }
     }
 
+
+    //add
     @Override
     public void add(ActionEvent event) throws Exception {
         Products newProduct = new Products();
@@ -175,10 +179,27 @@ public class Controller implements Initializable, MethodController {
     }
 
     @Override
-    public void update(ActionEvent e) {
+    public void save() {
+        try {
+            FileOutputStream fos = new FileOutputStream("src/file_manager/tung.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            for (Products product : productsList) {
+                oos.writeObject(product);
+            }
+//            oos.writeObject(productList);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void edit(ActionEvent e) {
         Products products = table.getSelectionModel().getSelectedItem();
         if (products == null) {
-            updateButton.setDisable(true);
+            editButton.setDisable(true);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("System information");
             alert.setContentText("No product selected. Please try again!");
@@ -189,8 +210,8 @@ public class Controller implements Initializable, MethodController {
             brandText.setText(products.getBrand());
             quantityText.setText(String.valueOf(products.getQuantity()));
             priceText.setText(String.valueOf(products.getPrice()));
-            saveButton.setDisable(false);
-            updateButton.setDisable(true);
+            updateButton.setDisable(false);
+            editButton.setDisable(true);
         }
     }
 
@@ -202,13 +223,14 @@ public class Controller implements Initializable, MethodController {
         alert.setContentText("Do you really want to delete ?");
         alert.showAndWait();
         productsList.remove(selectedProduct);
+        save();
         loadProducts();
 
     }
 
     public void TableSelectionChanged() {
         Products products = table.getSelectionModel().getSelectedItem();
-        updateButton.setDisable(products == null);
+        editButton.setDisable(products == null);
     }
 
 
@@ -232,10 +254,10 @@ public class Controller implements Initializable, MethodController {
     }
 
     @Override
-    public void save(ActionEvent event) throws Exception{
+    public void update(ActionEvent event) throws Exception {
         Products products = table.getSelectionModel().getSelectedItem();
         if (products == null) {
-            saveButton.setDisable(false);
+            updateButton.setDisable(false);
             Alert.AlertType alertAlertType;
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("System Information!");
@@ -248,8 +270,8 @@ public class Controller implements Initializable, MethodController {
             products.setQuantity(Integer.parseInt(quantityText.getText()));
             products.setPrice(Integer.parseInt(priceText.getText()));
 
-            saveButton.setDisable(true);
-            updateButton.setDisable(false);
+            updateButton.setDisable(true);
+            editButton.setDisable(false);
 
 //            productsList.add(products);
             loadProducts();
@@ -303,7 +325,6 @@ public class Controller implements Initializable, MethodController {
     public List findAll() {
         return null;
     }
-
 
 
 }
