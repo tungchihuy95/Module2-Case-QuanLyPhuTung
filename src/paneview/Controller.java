@@ -2,14 +2,16 @@ package paneview;
 
 import file_manager.FileManager;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
 
@@ -87,16 +89,25 @@ public class Controller implements Initializable, MethodController {
     @FXML
     private TextField searchText;
 
+    private final NumberFormat numberFormat = new DecimalFormat("#,###");
 
-    List<Products> productsList = new ArrayList<>();
+
+//   private ObservableList<Products> productsList;
+
+   private ObservableList<Products> productsList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            readFile();
+            productsList = FXCollections.observableArrayList(
+
+                         readFile()
+
+            );
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
+
 
         //vì ObservableList là thuộc ITF, nên phải có một thư viện để khởi tạo nó
 
@@ -106,22 +117,62 @@ public class Controller implements Initializable, MethodController {
         brandColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("brand"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<Products, Integer>("quantity"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<Products, Integer>("price"));
-        table.getItems().addAll(productsList);
+        priceColumn.setCellFactory(tc -> new  TableCell<Products, Integer>() {
+            @Override
+            protected void updateItem(Integer price, boolean empty) {
+                super.updateItem(price, empty);
+                if (price == null || empty) {
+                    setText(null);
+                } else {
+                    setText(numberFormat.format(price));
+                }
+            }
+        });
+        editButton.setDisable(true);
+        table.setItems(productsList);
+        this.search();
 
     }
 
 
     //Ghi
     public void writeFile() throws Exception {
-        FileManager<Products> fileManager = new FileManager<>();
-        fileManager.writeFile("src/file_manager/tung.txt", productsList);
+        FileOutputStream file;
+        ObjectOutputStream object;
+        try {
+            file = new FileOutputStream("tung.txt");
+            object = new ObjectOutputStream(file);
+            for (Products products : productsList) {
+                object.writeObject(products);
+            }
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //đọc file
-    public void readFile() throws Exception {
-        FileManager<Products> fileManager = new FileManager<>();
-        productsList.clear();
-        productsList.addAll(fileManager.readFile("src/file_manager/tung.txt"));
+    public List<Products> readFile() {
+        List<Products> list = new ArrayList<>();
+        FileInputStream file;
+        ObjectInputStream object;
+        try {
+            file = new FileInputStream("tung.txt");
+            object = new ObjectInputStream(file);
+            while (true) {
+                list.add((Products) object.readObject());
+            }
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace();
+        } catch (EOFException exception) {
+            exception.getMessage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     //load
@@ -143,8 +194,8 @@ public class Controller implements Initializable, MethodController {
         newProduct.setQuantity(Integer.parseInt(quantityText.getText()));
         newProduct.setPrice(Integer.parseInt(priceText.getText()));
 
-        for (Products products : productsList) {
-            if (products.getId().equals(idText.getText()) || idText.getText().equals("")) {
+        for (Products product : productsList) {
+            if (product.getId().equals(idText.getText()) || idText.getText().equals("")) {
 //                Alert.AlertType alertAlertType;
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Alert Information!");
@@ -164,19 +215,20 @@ public class Controller implements Initializable, MethodController {
         loadProducts();
         writeFile();
 
-
-//                if (flag)
-//                Products newProduct = new Products();
-//                newProduct.setId(idText.getText());
-//                newProduct.setName(nameText.getText());
-//                newProduct.setBrand(brandText.getText());
-//                newProduct.setQuantity(Integer.parseInt(quantityText.getText()));
-//                newProduct.setPrice(Integer.parseInt(priceText.getText()));
-//                    productList
-//                    productList.add(newProduct);
-
-
     }
+
+
+    //ghi file
+//    public void writeFile() throws Exception {
+//        FileManager<Products> fileManager = new FileManager<>();
+//        fileManager.writeFile("src/file_manager/tung.txt", productsList);
+//    }
+    //đọc file
+//    public void readFile() throws Exception {
+//        FileManager<Products> fileManager = new FileManager<>();
+//        productsList.clear();
+//        productsList.addAll(fileManager.readFile("src/file_manager/tung.txt"));
+//    }
 
     @Override
     public void save() {
@@ -215,6 +267,7 @@ public class Controller implements Initializable, MethodController {
         }
     }
 
+    //Delete
     @Override
     public void delete(ActionEvent event) {
         Products selectedProduct = table.getSelectionModel().getSelectedItem();
@@ -279,24 +332,46 @@ public class Controller implements Initializable, MethodController {
         }
     }
 
-    @Override
-    public void search(ActionEvent event) {
-//        String input = n.toLowerCase();
-//        boolean check = false;
-//        String string;
-//        int i;
-//        for (i = 0; i < listBooks.size(); i++) {
-//            string = (listBooks.get(i).getNameBook()).toLowerCase();
-//            for (int j = 0; j < (listBooks.get(i).getNameBook()).length(); j++) {
-//                if (listBooks.get(j).getNameBook().contains(input)) {
-//                    check = true;
-//                    break;
+
+    public void search() {
+        FilteredList<Products> searchList = new FilteredList<>(productsList, b -> true);
+        searchText.textProperty().addListener(((observable, oldValue, newValue) -> {
+            searchList.setPredicate(products -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowercaseValue = newValue.toLowerCase();
+                if (products.getId().indexOf(lowercaseValue) != -1) return true;
+                else if (products.getName().toLowerCase().indexOf(lowercaseValue) != -1) return true;
+                else if (products.getBrand().toLowerCase().indexOf(lowercaseValue) != -1) return true;
+                else if (String.valueOf(products.getQuantity()).indexOf(lowercaseValue) != -1) return true;
+                else if (String.valueOf(products.getPrice()).indexOf(lowercaseValue) != -1) return true;
+                else return false;
+            });
+        }));
+        table.setItems(searchList);
+//        List<Products> productsList = new ArrayList<>();
+//
+//        TableView<Products> table;
+//        public void searchId(String name) {
+//            String input = name.toLowerCase();
+//            boolean check = false;
+//            String string;
+//            int i;
+//            for (i = 0; i < productsList.size(); i++) {
+//                string = (productsList.get(i).getName()).toLowerCase();
+//                for (int j = 0; j < (productsList.get(i).getName()).length(); j++) {
+//                    if (productsList.get(j).getName().contains(input)) {
+//                        check = true;
+//                        break;
+//                    }
+//                    if (check)
+//                        table.getItems().add(productsList.get(i));
 //                }
-//                if (check)
-//                    tableView.getItems().add(listBooks.get(i));
 //            }
 //        }
     }
+
 
     @Override
     public void reset(ActionEvent event) {

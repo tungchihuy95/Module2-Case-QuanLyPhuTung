@@ -60,7 +60,7 @@
             <TableColumn fx:id="priceColumn" prefWidth="105.0" text="PRICE" />
         </columns>
       </TableView>
-      <Button fx:id="saveButton" layoutX="430.0" layoutY="135.0" mnemonicParsing="false" style="-fx-background-color: #ffd700#ffd700;" text="SAV" />
+      <Button fx:id="saveButton" layoutX="430.0" layoutY="135.0" mnemonicParsing="false" onAction="#writeFile" style="-fx-background-color: #ffd700#ffd700;" text="SAV" />
       <Button fx:id="updateButton" layoutX="429.0" layoutY="100.0" mnemonicParsing="false" onAction="#update" style="-fx-background-color: #48d1cc#48d1cc;" text="UPD" />
    </children>
 </AnchorPane>

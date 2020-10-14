@@ -12,7 +12,7 @@ public interface MethodController<T> {
     void select(ActionEvent event);
     void save() throws Exception;
     void reset(ActionEvent event);
-    void search(ActionEvent event);
+
     void edit(ActionEvent event);
 
     T findById(int id);
